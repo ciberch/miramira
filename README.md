@@ -1,27 +1,51 @@
 Mira Mira
 ========
 
-App to showcase use of the Mirror API
+### Use Cases
 
-## How your app gets installed
+For Anyone
+- Login with Google+ to see who of their friends are online
+- Directory of users and their locations (and busy or not)
 
-- User logs in via google and authorizes using OAuth 2
-
-Example: https://glassfeeder.appspot.com/
-
-## How your code gets run
-
-- if users share something with you ?
-
-## Callbacks
-
-Light pings you then query via REST
-Each ping has the token for the user
+For the glass wearer
+- I want to know if anyone needs me urgently and where to meet them or what actions I need to do.
 
 
-### Timeline Cards
+### Screens needed
 
-### Bundles
+#### Login
+Auth
+Mark down whether the user has Glasses or Not
+Mark down if they want to share their location
 
-- Pagination - array of html elements
-- Threading - use the same bundle id
+#### List of friends
+
+Friends that have you in a circle “can-reach-me” ??
+  You guys tell me. -- Maybe the app lets you pick circles to use with the app. Some circles could be dragged to Alerts others to Info.
+
+#### Send Message Screen
+- Support multiple recipients ? -- Post an action to a set of circles
+- Preview shows your profile pic and name
+- Message text
+- Severity (Urgent or not)
+
+
+### Google Glass Screens
+
+#### Alert
+From
+Urgency Indicator
+Message
+Answer/Reply
+
+#### Second Notice
+Alert has been handled by person X
+
+
+### Components
+
+### Server App
+
+### Front End
+
+- Bootstrap http://twitter.github.com/bootstrap/base-css.html
