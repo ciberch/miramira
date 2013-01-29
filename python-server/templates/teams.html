@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
 	            <span class="controls" style="padding: 10px;" >
-	                <select id="circle_name" class="input-xlarge" name="circle_name">
+	                <select id="circle_name" class="input-xlarge" name="team">
 	                    {% for team in user.circles %}
 	                    <option value="{{ team }}">
 	                    	<span>{{ team }}</span>
@@ -19,7 +19,7 @@
 	                    <ul id="user_list" class="unstyled">
 	                    {% for usr in allUsers %}
 	                    	<li>
-	                    	<input type="checkbox" id="check_{{ usr.key() }}" name="people" value="{{ usr.key() }}" />
+	                    	<input type="checkbox" id="check_{{ usr.key().name() }}" name="member" value="{{ usr.key().name() }}" />
 	                    	<img src="{{ usr.photo }}" width="30" height="30"/>&nbsp;
 	                    		<span>{{ usr.first_name }} {{ usr.last_name }}</span>
 	                    	</li>

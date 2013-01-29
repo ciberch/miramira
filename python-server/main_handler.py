@@ -29,7 +29,7 @@ from google.appengine.api import urlfetch
 
 from apiclient.http import MediaIoBaseUpload
 
-from model import User
+from model import User, CircleRelation
 
 import util
 
@@ -209,6 +209,18 @@ class MainHandler(webapp2.RequestHandler):
     return 'Share target has been deleted.'
 
   def _add_user_to_team(self):
+    team = self.request.get('team')
+    members = self.request.get('member', allow_multiple=True)
+
+    logging.info("KEY KEY KEY")
+    logging.info(members)
+    members = [User.get_by_key_name(key).key() for key in members] 
+    relations = CircleRelation.gql('WHERE name=:1 and follower in :2', team, members)
+    keys = [relation.following for relation in relations]
+    for member in members:
+       if not member in keys:
+           logging.info('Stuff works')
+           CircleRelation(name=team, follower=self.userModel, following=member).put()
     return "The users have been added to the team"
 
 MAIN_ROUTES = [

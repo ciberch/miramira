@@ -36,7 +36,7 @@ class NotifyHandler(webapp2.RequestHandler):
     """Handles notification pings."""
     data = json.loads(self.request.body)
     userid = data['userToken']
-    username = User.get_by_key_name(userid).first_name
+    theuser = User.get_by_key_name(userid)
     collection = data['collection']
     TOKEN = data.get('verifyToken')
     if TOKEN:
@@ -67,7 +67,12 @@ class NotifyHandler(webapp2.RequestHandler):
 
     reply_text = reply_item.get('text')
     original_post = glass_service.timeline().get(id=reply_item.get('inReplyTo', '')).execute()
-    original_post['text'] = 'Being Handled by %s:\n%s' % (username, original_post['text'])
+    original_post['text'] = 'Being Handled by %s:\n%s' % (theuser.first_name, original_post['text'])
+    original_post['creator'] = {
+           'id': theuser.key().name(),
+           'displayName': theuser.first_name,
+           'imageUrls': [theuser.photo]
+    }
     glass_service.timeline().update(id=original_post['id'], body=original_post).execute()
     glass_service.timeline().delete(timelineId=reply_item['id']).execute()
 
