@@ -84,7 +84,8 @@ class MainHandler(webapp2.RequestHandler):
         'insertItem': self._insert_item,
         'insertItemWithAction': self._insert_item_with_action,
         'insertShareTarget': self._insert_share_target,
-        'deleteShareTarget': self._delete_share_target
+        'deleteShareTarget': self._delete_share_target,
+        'send_circle': self._send_circle_message
     }
     if operation in operations:
       message = operations[operation]()
@@ -150,6 +151,9 @@ class MainHandler(webapp2.RequestHandler):
     # self.glass_service is initialized in util.auth_required.
     self.glass_service.timeline().insert(body=body).execute()
     return 'A timeline item with action has been inserted.'
+
+  def _send_circle_message(self):
+    self._send_alert(self.request.get('message'), self.request.get('circles', '').split(','))
 
   def _send_alert(self, message_text, circles):
     alert.Alert(message_text).for_(circles).send()
