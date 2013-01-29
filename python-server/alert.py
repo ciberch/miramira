@@ -2,6 +2,8 @@
 
 import httplib2
 import util
+import logging
+
 from model import Credentials, User, CircleRelation
 from google.appengine.ext import db
 
@@ -20,21 +22,21 @@ class Alert(object):
        
    def for_(self, circle):
       if isinstance(circle, list):
-         self.circles.extend([a.upper() for a in circle])
+         self.circles.extend([a for a in circle])
       else:
-         self.circles.append(circle.upper())
+         self.circles.append(circle)
       return self
 
    def send(self):
        body = self.construct_body()
        for circle in self.circles:
-           body['creator'] = { 'id': circle, 'display_name': circle}
+           body['creator'] = { 'id': self.user.key().name(), 'displayName': self.user.first_name, 'imageUrls': [self.user.photo]}
            self.send_to_circle(body, circle)
 
    def send_to_circle(self, body, circle):
-       users = []
-       circleRels = CircleRelation.all().filter("follower=", self.user).filter("name=", circle)
+       circleRels = CircleRelation.gql('WHERE name = :1 AND follower = :2 ', circle, self.user)
        for rel in circleRels:
+          logging.info('Sending to a user')
           self.send_body(body, rel.following)
         
    def send_body(self, body, user):
@@ -42,6 +44,7 @@ class Alert(object):
        creds = Credentials.get_by_key_name(user.key().name())
        if creds is None or creds.credentials is None:
           # If the user's auth token expired, just bail and continue on
+          logging.error('Sending to a user failed no auth')
           return
 
        creds.credentials.authorize(http)
