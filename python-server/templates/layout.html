@@ -46,5 +46,41 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/bootstrap-dropdown.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript">
+this.map = null;
+this.getLocation = function(position) {
+    var mapOptions = {
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var myMap = document.getElementById('map');
+    this.map = new google.maps.Map(myMap,mapOptions);
+    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    console.log("Pos is " + pos);
+    this.map.setCenter(pos);
+    var marker = new google.maps.Marker({
+      position: pos,
+      map: this.map,
+      title: 'Drag to the proper location',
+      draggable:true
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      console.log("New position is ");
+      console.dir(marker.getPosition());
+      this.map.setCenter(marker.getPosition());
+    });
+
+}
+
+$(window).load(function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.getLocation);
+    } else {
+        alert("Geo Location is not supported on your device");
+    }
+});
+
+</script>
 </body>
 </html>
