@@ -85,7 +85,7 @@ class MainHandler(webapp2.RequestHandler):
         'insertItemWithAction': self._insert_item_with_action,
         'insertShareTarget': self._insert_share_target,
         'deleteShareTarget': self._delete_share_target,
-        'send_circle': self._send_circle_message
+        'team_send': self._send_circle_message
     }
     if operation in operations:
       message = operations[operation]()
@@ -153,7 +153,7 @@ class MainHandler(webapp2.RequestHandler):
     return 'A timeline item with action has been inserted.'
 
   def _send_circle_message(self):
-    self._send_alert(self.request.get('message'), self.request.get('circles', '').split(','))
+    self._send_alert(self.request.get('message'), self.request.get('team', '').split(','))
 
   def _send_alert(self, message_text, circles):
     alert.Alert(message_text).for_(circles).send()
