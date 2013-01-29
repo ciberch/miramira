@@ -1,6 +1,5 @@
 <form class="form-horizontal" action="/" method="post">
-    <input type="hidden" name="operation" value="teamAddUser">
-	<a href="#user_selection" role="button" class="btn" data-toggle="modal">Select users to subscribe to</a>        
+    <input type="hidden" name="operation" value="teamAddUser">       
         <div id="user_selection" class="modal hide fade" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -33,60 +32,3 @@
             </div>
         </div>
 </form>
-
-<h2>Teams</h2>
-        <p>Click on a team to be able to send messages to them from Glass</p>
-<div class="do">
-    <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertShareTarget">
-        <input type="hidden" name="imageUrl" value="/static/icons/search.png">
-        <input type="hidden" name="name" value="Team 1">
-        <button type="submit">Team 1<img class="share-target-icon" src="/static/icons/search.png"/></button>
-    </form>
-
-    <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertShareTarget">
-        <input type="hidden" name="imageUrl" value="/static/icons/file.png">
-        <input type="hidden" name="name" value="Team 2">
-        <button type="submit">Team 2<img class="share-target-icon" src="/static/icons/file.png"/></button>
-    </form>
-
-    <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertShareTarget">
-        <input type="hidden" name="imageUrl" value="/static/icons/drill.png">
-        <input type="hidden" name="name" value="Team 3">
-        <button type="submit">Team 3<img class="share-target-icon" src="/static/icons/drill.png"/></button>
-    </form>
-
-</div>
-<table class="see">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Display Name</th>
-        <th>Icon</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% if shareTargets %}
-    {% for shareTarget in shareTargets %}
-    <tr>
-        <td>{{ shareTarget.id }}
-        </td>
-        <td>{{ shareTarget.displayName }}
-        </td>
-        <td><img class="share-target-icon" src="{{ shareTarget.imageUrls[0] }}"></td>
-        <td>
-            <form action="/" method="post">
-                <input type="hidden" name="id" value="{{ shareTarget.id }}">
-                <input type="hidden" name="operation" value="deleteShareTarget">
-                <button type="submit" class="delete">X</button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-    {% endif %}
-    </tbody>
-</table>
-<div style="clear: both"></div>
