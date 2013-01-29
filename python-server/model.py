@@ -33,7 +33,18 @@ class Credentials(db.Model):
 class User(db.Model):
   first_name = db.StringProperty()
   last_name = db.StringProperty()
+  email = db.StringProperty()
   photo = db.LinkProperty()
   circles = db.StringListProperty()
+
+class UserCoords(db.Model):
+  user = db.ReferenceProperty(User)
   latitude = db.FloatProperty()
   longitude = db.FloatProperty()
+  created_at = db.DateProperty()
+
+class CircleRelation(db.Model):
+  name = db.StringProperty()
+  follower = db.ReferenceProperty(User, collection_name="follower")
+  following = db.ReferenceProperty(User, collection_name="following") 
+
