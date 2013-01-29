@@ -22,10 +22,35 @@ limitations under the License.
   <link rel="stylesheet" href="static/css/screen.css"/>
 </head>
 <body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <!-- Be sure to leave the brand out there if you want it shown -->
+            <a class="brand" href="#">Mira Mira</a>
+
+            <ul class="nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{ user.photo }}" width="30" height="30"/>&nbsp;<span>{{ user.first_name }}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/teams">Manage Teams</a></li>
+                        <li><a href="/signout">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <!-- .nav, .navbar-search, .navbar-form, etc -->
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="hero-unit top">
   <h1>Mira Mira</h1>
-  <h2>Hi {{ user.first_name }}!</h2>
-  <img src="{{ user.photo }}" width="76" height="76"/>
   <p class="lead">San Francisco Edition</p>
 </div>
 
@@ -199,5 +224,8 @@ limitations under the License.
 
 </section>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap-dropdown.js"></script>
 </body>
 </html>
