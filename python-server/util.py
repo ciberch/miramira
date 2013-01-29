@@ -85,7 +85,7 @@ def add_person_to_follow(follower, following, circleName):
   circleRelModel = None
   if following:
     for currentCircle in follower.circles:
-      if currentCircle.name == circleName:
+      if currentCircle == circleName:
         circleRelModel = CircleRelation()
         circleRelModel.follower = follower.key()
         circleRelModel.following = following.key()
@@ -123,6 +123,7 @@ def auth_required(handler_method):
                  email=userJson['email'],
                  circles=defaultCircles,
                  photo=userJson['picture'])
+          add_person_to_follow(userModel, userModel, 'Developers')
           userModel.put()
 
       self.userModel = userModel

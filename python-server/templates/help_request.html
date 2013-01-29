@@ -8,7 +8,7 @@
     </fieldset>
             <!-- Select Multiple -->
             <label class="control-label">To</label>
-            <div class="controls">
+            <div class="controls" style="padding: 10px;" >
                 <select class="input-xlarge" multiple="multiple" name="team">
                     {% for circle in user.circles %}
                     <option>{{ circle }}</option>
@@ -16,7 +16,7 @@
                 </select>
             </div>
         </div>
-
+        
         <div class="control-group">
             <!-- Textarea -->
             <label class="control-label">Message</label>
