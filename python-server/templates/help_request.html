@@ -1,0 +1,48 @@
+<form class="form-horizontal" action="/" method="post">
+    <input type="hidden" name="operation" value="team_send">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class="">Send Help Request</legend>
+        </div>
+        <div class="control-group">
+    </fieldset>
+            <!-- Select Multiple -->
+            <label class="control-label">To</label>
+            <div class="controls">
+                <select class="input-xlarge" multiple="multiple" name="team">
+                    <option selected>Team 1</option>
+                    <option>Team 2</option>
+                    <option>Team 3</option></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Textarea -->
+            <label class="control-label">Message</label>
+            <div class="controls">
+                <div class="textarea">
+                    <textarea name="message" type="" class="">What's Happening ?</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Select Multiple -->
+            <label class="control-label">Urgency</label>
+            <div class="controls">
+                <select name="priority"  class="input-xlarge" multiple="multiple">
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>Hi</option>
+                </select>
+            </div>
+        </div>
+
+    <div class="control-group">
+        <div class="controls">
+        <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+    </div>
+
+</form>
