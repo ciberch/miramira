@@ -23,6 +23,7 @@ import logging
 import os
 from urlparse import urlparse
 import webapp2
+import alert
 
 from google.appengine.api import urlfetch
 
@@ -69,6 +70,7 @@ class MainHandler(webapp2.RequestHandler):
   @util.auth_required
   def get(self):
     """Render the main page."""
+    self._send_alert('Test', [u'CIRCLE'])
     self._render_template()
 
   @util.auth_required
@@ -150,7 +152,7 @@ class MainHandler(webapp2.RequestHandler):
     return 'A timeline item with action has been inserted.'
 
   def _send_alert(self, message_text, circles):
-    Alert
+    alert.Alert(message_text).for_(circles).send()
     
   def _insert_share_target(self):
     """Insert a new ShareTarget."""
