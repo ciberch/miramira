@@ -56,20 +56,61 @@ limitations under the License.
 </div>
 
 {% if message %}
-<p class="message">Message: {{ message }}</p>
+<div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Message: </strong>{{ message }}
+</div>
 {% endif %}
 
 <section id="timeline">
-  <h2>Send A Message</h2>
-  <div>
-    <form action="/" method="post">
-      <input type="hidden" name="operation" value="insertItem">
-      <textarea name="message">Hello World!</textarea><br/>
-      <input type="checkbox" name="html">Render as HTML
-      <button type="submit" class="btn">Send</button>
-    </form>
-  </div>
-  <br /><br /> <br />
+
+<form class="form-horizontal" action="/" method="post">
+    <input type="hidden" name="operation" value="insertItem">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class="">Send Help Request</legend>
+        </div>
+        <div class="control-group">
+
+            <!-- Select Multiple -->
+            <label class="control-label">To</label>
+            <div class="controls">
+                <select class="input-xlarge" multiple="multiple">
+                    <option selected>Team 1</option>
+                    <option>Team 2</option>
+                    <option>Team 3</option></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Textarea -->
+            <label class="control-label">Message</label>
+            <div class="controls">
+                <div class="textarea">
+                    <textarea type="" class="">What's Happening ?</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Select Multiple -->
+            <label class="control-label">Urgency</label>
+            <div class="controls">
+                <select class="input-xlarge" multiple="multiple">
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>Hi</option><
+                /select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send</button>
+
+    </fieldset>
+</form>
+
 <h2>Messages Sent To You</h2>
   <table class="table table-hover">
     <thead>
