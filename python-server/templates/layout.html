@@ -46,5 +46,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/bootstrap-dropdown.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript">
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(App.helper.getLocation);
+} else {
+    alert("Geo Location is not supported on your device");
+}
+</script>
 </body>
 </html>
