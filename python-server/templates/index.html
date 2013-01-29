@@ -20,30 +20,97 @@ limitations under the License.
   <title>Mira Mira</title>
   <link rel="stylesheet" href="static/css/bootstrap.css"/>
   <link rel="stylesheet" href="static/css/screen.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico">
 </head>
 <body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <!-- Be sure to leave the brand out there if you want it shown -->
+            <a class="brand" href="#">Mira Mira</a>
+
+            <ul class="nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="{{ user.photo }}" width="30" height="30"/>&nbsp;<span>{{ user.first_name }}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/teams">Manage Teams</a></li>
+                        <li><a href="/signout">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <!-- .nav, .navbar-search, .navbar-form, etc -->
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="hero-unit top">
   <h1>Mira Mira</h1>
-  <h2>Hi {{ user.first_name }}!</h2>
-  <img src="{{ user.photo }}" width="76" height="76"/>
   <p class="lead">San Francisco Edition</p>
 </div>
 
 {% if message %}
-<p class="message">Message: {{ message }}</p>
+<div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Message: </strong>{{ message }}
+</div>
 {% endif %}
 
 <section id="timeline">
-  <h2>Send A Message</h2>
-  <div>
-    <form action="/" method="post">
-      <input type="hidden" name="operation" value="insertItem">
-      <textarea name="message">Hello World!</textarea><br/>
-      <input type="checkbox" name="html">Render as HTML
-      <button type="submit" class="btn">Send</button>
-    </form>
-  </div>
-  <br /><br /> <br />
+
+<form class="form-horizontal" action="/" method="post">
+    <input type="hidden" name="operation" value="insertItem">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class="">Send Help Request</legend>
+        </div>
+        <div class="control-group">
+
+            <!-- Select Multiple -->
+            <label class="control-label">To</label>
+            <div class="controls">
+                <select class="input-xlarge" multiple="multiple">
+                    <option selected>Team 1</option>
+                    <option>Team 2</option>
+                    <option>Team 3</option></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Textarea -->
+            <label class="control-label">Message</label>
+            <div class="controls">
+                <div class="textarea">
+                    <textarea type="" class="">What's Happening ?</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Select Multiple -->
+            <label class="control-label">Urgency</label>
+            <div class="controls">
+                <select class="input-xlarge" multiple="multiple">
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>Hi</option><
+                /select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send</button>
+
+    </fieldset>
+</form>
+
 <h2>Messages Sent To You</h2>
   <table class="table table-hover">
     <thead>
@@ -199,5 +266,8 @@ limitations under the License.
 
 </section>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap-dropdown.js"></script>
 </body>
 </html>
