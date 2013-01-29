@@ -34,8 +34,8 @@ class User(db.Model):
   first_name = db.StringProperty()
   last_name = db.StringProperty()
   circles = db.StringListProperty()
-  #latitude = db.DecimalProperty()
-  #longitude = db.DecimalProperty()
+  latitude = db.FloatProperty()
+  longitude = db.FloatProperty()
 
 
 
