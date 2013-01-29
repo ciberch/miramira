@@ -6,20 +6,20 @@
         </div>
         <div class="control-group">
     </fieldset>
-            <!-- Select Multiple -->
+                    
+        <div class="row">
+
+        <div class="control-group span6">
             <label class="control-label">To</label>
-            <div class="controls" style="padding: 10px;" >
-                <select class="input-xlarge" multiple="multiple" name="team">
+            <div class="controls" >
+                <select class="" multiple="multiple" name="team">
                     {% for circle in user.circles %}
                     <option>{{ circle }}</option>
                     {% endfor %}
                 </select>
             </div>
-        </div>
+            <br />
         
-        <div class="row">
-
-        <div class="control-group span6">
             <!-- Textarea -->
             <label class="control-label">Message</label>
             <div class="controls">
@@ -28,11 +28,10 @@
                 </div>
             </div>
             <br />
-            <br/>
                         <!-- Select Multiple -->
             <label class="control-label">Urgency</label>
             <div class="controls">
-                <select name="priority"  class="input-xlarge" multiple="multiple">
+                <select name="priority" multiple="multiple">
                     <option>High</option>
                     <option>Medium</option>
                     <option>Low</option>
