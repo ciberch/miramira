@@ -41,7 +41,7 @@ class MainHandler(webapp2.RequestHandler):
   def _render_template(self, message=None):
     """Render the main page template."""
     pr = urlparse(self.request.url)
-    template_values = {'appBaseUrl': pr.netloc, 'userId': self.userid}
+    template_values = {'appBaseUrl': pr.netloc, 'user': self.userModel}
     if message:
       template_values['message'] = message
     # self.glass_service is initialized in util.auth_required.

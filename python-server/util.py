@@ -22,8 +22,9 @@ from apiclient.discovery import build
 from apiclient.discovery import build_from_document
 from oauth2client.appengine import StorageByKeyName
 import sessions
+import json
 
-from model import Credentials
+from model import Credentials, User
 
 
 # Load the secret that is used for client side sessions
@@ -89,5 +90,18 @@ def auth_required(handler_method):
       self.redirect('/auth')
       return
     else:
+      userModel = User.get_by_key_name(self.userid)
+      if userModel is None:
+          http = httplib2.Http()
+          self.credentials.authorize(http)
+          _, content = http.request('https://www.googleapis.com/oauth2/v1/userinfo')
+          userJson = json.loads(content)
+          userModel = User(
+                 key_name=userJson['id'],
+                 first_name=userJson['given_name'],
+                 last_name=userJson['family_name'],
+                 photo=userJson['picture'])
+          userModel.put()
+      self.userModel = userModel
       handler_method(self, *args)
   return check_auth
