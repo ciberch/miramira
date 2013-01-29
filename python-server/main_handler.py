@@ -65,6 +65,10 @@ class MainHandler(webapp2.RequestHandler):
     if( allUsers ):
         template_values['allUsers'] = allUsers
       
+    allTeams = User.all()
+    if( allUsers ):
+        template_values['allUsers'] = allUsers
+    
     template = jinja_environment.get_template('templates/index.html')
     self.response.out.write(template.render(template_values))
 

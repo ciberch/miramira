@@ -7,7 +7,16 @@
                 <h3>Select users to add</h3>
             </div>
             <div class="modal-body">
-	            <div class="controls" style="padding: 10px;" >
+	            <span class="controls" style="padding: 10px;" >
+	                <select id="teams" class="input-xlarge" name="teams">
+	                    {% for team in user.circles %}
+	                    <option>
+	                    	<span>{{ team }}</span>
+	                    </option>
+	                    {% endfor %}
+	                </select>
+	            </span>
+	            <span class="controls" style="padding: 10px;" >
 	                <select class="input-xlarge" multiple="multiple" name="team">
 	                    {% for usr in allUsers %}
 	                    <option>
@@ -16,7 +25,7 @@
 	                    </option>
 	                    {% endfor %}
 	                </select>
-	            </div>
+	            </span>
            </div>
             <div class="modal-footer">
             	<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
