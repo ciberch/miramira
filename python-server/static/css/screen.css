@@ -96,3 +96,8 @@ section h2 {
 .sign-out {
   float: right;
 }
+
+.hero-unit  {
+    background: url('/static/img/bg/Oak.jpg') no-repeat right #191970;
+    color: #ffffd5;
+}
