@@ -13,40 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-body {
-  font-family: helvetica, sans-serif;
-  width: 760px;
-  margin: 10px auto;
-}
-
-header {
-  border-bottom: 1px solid #DDD;
-  margin-bottom: 10px;
-}
-
-header h1 {
-  margin-bottom: 2px;
-}
-
-header p {
-  font-style: italic;
-  margin-top: 2px;
-  margin-left: 20px;
-}
-
-table {
-  width: 100%;
-}
-
-th {
-  font-weight: bold;
-}
-
-td, th {
-  border: 1px solid #AAA;
-  margin: 0;
-}
-
 
 button {
   -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
