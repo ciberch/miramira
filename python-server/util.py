@@ -123,7 +123,6 @@ def auth_required(handler_method):
                  email=userJson['email'],
                  circles=defaultCircles,
                  photo=userJson['picture'])
-          userModel.circles = ['TEAM 1']
           userModel.put()
 
       self.userModel = userModel
