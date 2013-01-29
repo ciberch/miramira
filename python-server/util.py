@@ -120,6 +120,7 @@ def auth_required(handler_method):
                  key_name=userJson['id'],
                  first_name=userJson['given_name'],
                  last_name=userJson['family_name'],
+                 email=userJson['email'],
                  circles=defaultCircles,
                  photo=userJson['picture'])
           userModel.put()
