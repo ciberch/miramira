@@ -1,0 +1,35 @@
+<h2>Messages Sent To You</h2>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Message</th>
+        <th>Attachments</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if timelineItems %}
+    {%  for timelineItem in timelineItems %}
+    <tr>
+        <td class="id">{{ timelineItem.id }}</td>
+        {% if timelineItem.text %}
+        <td>Text: {{ timelineItem.text }}</td>
+        {% else %}
+        <td>HTML: {{ timelineItem.html|e }}</td>
+        {% endif %}
+        <td>
+            {% if timelineItem.attachments %}
+            {% for attachment in timelineItem.attachments %}
+            {% if attachment.contentType.startswith('image') %}
+            <img src="/attachmentproxy?attachment={{ attachment.id }}&timelineItem={{ timelineItem.id }}" width="150">
+            {% else %}
+            <a href="/attachmentproxy?attachment={{ attachment.id }}&timelineItem={{ timelineItem.id }}">Download</a>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+</table>

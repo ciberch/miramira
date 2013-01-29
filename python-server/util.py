@@ -24,7 +24,7 @@ from oauth2client.appengine import StorageByKeyName
 import sessions
 import json
 
-from model import Credentials, User
+from model import Credentials, User, UserCoords, CircleRelation
 
 
 # Load the secret that is used for client side sessions
@@ -81,6 +81,23 @@ def create_glass_service(http):
     discovery_file.close()
     return result
 
+def add_person_to_follow(follower, following, circleName):
+  circleRelModel = None
+  if following:
+    for currentCircle in follower.circles:
+      if currentCircle.name == circleName:
+        circleRelModel = CircleRelation()
+        circleRelModel.follower = follower.key()
+        circleRelModel.following = following.key()
+        circleRelModel.name = circleName
+        circleRelModel.put()
+  return circleRelModel
+
+def add_person_to_follow_by_id(follower, following_id, circleName):
+  following = User.get_by_key_name(following_id)
+  add_person_to_follow(follower, following, circleName)
+  return None
+
 def auth_required(handler_method):
   """A decorator to require that the user has authorized the Glassware."""
 
@@ -98,13 +115,17 @@ def auth_required(handler_method):
           self.credentials.authorize(http)
           _, content = http.request('https://www.googleapis.com/oauth2/v1/userinfo')
           userJson = json.loads(content)
+          defaultCircles = ['Ops', 'Developers', 'QA', 'Bosses']
           userModel = User(
                  key_name=userJson['id'],
                  first_name=userJson['given_name'],
                  last_name=userJson['family_name'],
+                 email=userJson['email'],
+                 circles=defaultCircles,
                  photo=userJson['picture'])
           userModel.circles = ['TEAM 1']
           userModel.put()
+
       self.userModel = userModel
       handler_method(self, *args)
   return check_auth
