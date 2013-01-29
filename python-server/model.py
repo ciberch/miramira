@@ -29,3 +29,13 @@ class Credentials(db.Model):
   used by the Storage classes to store OAuth 2.0 credentials in the data store.
   """
   credentials = CredentialsProperty()
+
+class User(db.Model):
+  first_name = db.StringProperty()
+  last_name = db.StringProperty()
+  circles = db.StringListProperty()
+  #latitude = db.DecimalProperty()
+  #longitude = db.DecimalProperty()
+
+
+
