@@ -70,7 +70,10 @@ class MainHandler(webapp2.RequestHandler):
   @util.auth_required
   def get(self):
     """Render the main page."""
-    self._insert_subscription()
+    try:
+      self._insert_subscription()
+    except:
+      print "Oops"
     self._render_template()
 
   @util.auth_required
