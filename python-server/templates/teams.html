@@ -16,13 +16,15 @@
 	                </select>
 	            </span>
 	            <span class="controls" style="padding: 10px;" >
-	                <select class="input-xlarge" multiple="multiple" name="team">
+	                    <ul id="user_list" class="unstyled">
 	                    {% for usr in allUsers %}
-	                    <option>
+	                    	<li>
+	                    	<input type="checkbox" id="check_{{ usr.key() }}" name="people" value="{{ usr.key() }}" />
 	                    	<img src="{{ usr.photo }}" width="30" height="30"/>&nbsp;
 	                    		<span>{{ usr.first_name }} {{ usr.last_name }}</span>
-	                    </option>
+	                    	</li>
 	                    {% endfor %}
+	                    </ul>
 	                </select>
 	            </span>
            </div>
