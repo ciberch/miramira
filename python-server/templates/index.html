@@ -65,7 +65,7 @@ limitations under the License.
 <section id="timeline">
 
 <form class="form-horizontal" action="/" method="post">
-    <input type="hidden" name="operation" value="insertItem">
+    <input type="hidden" name="operation" value="team_send">
     <fieldset>
         <div id="legend" class="">
             <legend class="">Send Help Request</legend>
@@ -75,7 +75,7 @@ limitations under the License.
             <!-- Select Multiple -->
             <label class="control-label">To</label>
             <div class="controls">
-                <select class="input-xlarge" multiple="multiple">
+                <select name="team" class="input-xlarge" multiple="multiple">
                     <option selected>Team 1</option>
                     <option>Team 2</option>
                     <option>Team 3</option></select>
@@ -88,7 +88,7 @@ limitations under the License.
             <label class="control-label">Message</label>
             <div class="controls">
                 <div class="textarea">
-                    <textarea type="" class="">What's Happening ?</textarea>
+                    <textarea name="message" type="" class="">What's Happening ?</textarea>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@ limitations under the License.
             <!-- Select Multiple -->
             <label class="control-label">Urgency</label>
             <div class="controls">
-                <select class="input-xlarge" multiple="multiple">
+                <select name="priority" class="input-xlarge" multiple="multiple">
                     <option>Low</option>
                     <option>Medium</option>
                     <option>Hi</option><

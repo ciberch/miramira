@@ -23,6 +23,7 @@ import logging
 import os
 from urlparse import urlparse
 import webapp2
+import alert
 
 from google.appengine.api import urlfetch
 
@@ -69,6 +70,7 @@ class MainHandler(webapp2.RequestHandler):
   @util.auth_required
   def get(self):
     """Render the main page."""
+    self._send_alert('Test', [u'CIRCLE'])
     self._render_template()
 
   @util.auth_required
@@ -82,7 +84,8 @@ class MainHandler(webapp2.RequestHandler):
         'insertItem': self._insert_item,
         'insertItemWithAction': self._insert_item_with_action,
         'insertShareTarget': self._insert_share_target,
-        'deleteShareTarget': self._delete_share_target
+        'deleteShareTarget': self._delete_share_target,
+        'team_send': self._send_circle_message
     }
     if operation in operations:
       message = operations[operation]()
@@ -149,6 +152,12 @@ class MainHandler(webapp2.RequestHandler):
     self.glass_service.timeline().insert(body=body).execute()
     return 'A timeline item with action has been inserted.'
 
+  def _send_circle_message(self):
+    self._send_alert(self.request.get('message'), self.request.get('team', '').split(','))
+
+  def _send_alert(self, message_text, circles):
+    alert.Alert(message_text).for_(circles).send()
+    
   def _insert_share_target(self):
     """Insert a new ShareTarget."""
     logging.info('Inserting share target Item')

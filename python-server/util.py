@@ -71,13 +71,15 @@ def create_service(service, version, creds=None):
 
   # Build a service from the passed discovery document path
   if service == 'glass':
+    return create_glass_service(http)
+  else:
+    return build(service, version, http=http)
+
+def create_glass_service(http):
     discovery_file = open('glass.v1.json')
     result = build_from_document(discovery_file.read(), http=http)
     discovery_file.close()
     return result
-  else:
-    return build(service, version, http=http)
-
 
 def auth_required(handler_method):
   """A decorator to require that the user has authorized the Glassware."""
