@@ -7,9 +7,9 @@
             </div>
             <div class="modal-body">
 	            <span class="controls" style="padding: 10px;" >
-	                <select id="teams" class="input-xlarge" name="teams">
+	                <select id="circle_name" class="input-xlarge" name="circle_name">
 	                    {% for team in user.circles %}
-	                    <option>
+	                    <option value="{{ team }}">
 	                    	<span>{{ team }}</span>
 	                    </option>
 	                    {% endfor %}
