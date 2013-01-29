@@ -17,55 +17,33 @@ limitations under the License.
 <!doctype html>
 <html>
 <head>
-  <title>Glassware Starter Project</title>
-  <link rel="stylesheet" href="static/screen.css"/>
+  <title>Mira Mira</title>
+  <link rel="stylesheet" href="static/css/bootstrap.css"/>
+  <link rel="stylesheet" href="static/css/screen.css"/>
 </head>
 <body>
-<header>
-  <h1>Glassware Starter Project</h1>
-  <p>python edition</p>
-</header>
+<div class="hero-unit top">
+  <h1>Mira Mira</h1>
+  <p class="lead">San Francisco Edition</p>
+</div>
 
 {% if message %}
 <p class="message">Message: {{ message }}</p>
 {% endif %}
 
 <section id="timeline">
-  <h2>Timeline</h2>
-  <div class="do">
+  <h2>Send A Message</h2>
+  <div>
     <form action="/" method="post">
       <input type="hidden" name="operation" value="insertItem">
       <textarea name="message">Hello World!</textarea><br/>
       <input type="checkbox" name="html">Render as HTML
-      <button type="submit">The above message</button>
+      <button type="submit" class="btn">Send</button>
     </form>
-    <form action="/" method="post">
-      <input type="hidden" name="operation" value="insertItem">
-      <input type="hidden" name="message" value="A solar eclipse of Saturn. Earth is also in this photo. Can you find it?">
-      <input type="hidden" name="imageUrl" value="/static/example-data/saturn-eclipse.jpg">
-      <input type="hidden" name="contentType" value="image/jpeg">
-      <button type="submit">A picture <img class="button-icon" src="/static/example-data/saturn-eclipse.jpg"></button>
-    </form>
-    <form action="/" method="post">
-      <input type="hidden" name="operation" value="insertItem">
-      <input type="hidden" name="message" value="nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan nyan">
-      <input type="hidden" name="imageUrl" value="/static/example-data/nyan.gif">
-      <input type="hidden" name="contentType" value="image/gif">
-
-      <button type="submit">Nyan Cat <img class="button-icon" src="/static/example-data/nyan.gif"></button>
-    </form>
-    <form action="/" method="post">
-      <input type="hidden" name="operation" value="insertItem">
-      <input type="hidden" name="message" value="It's a piano!">
-      <input type="hidden" name="imageUrl" value="static/example-data/piano.mp3">
-      <input type="hidden" name="contentType" value="audio/mp3">
-
-      <button type="submit">Piano sound</button>
-    </form>
-
-
   </div>
-  <table class="see">
+  <br /><br /> <br />
+<h2>Messages Sent To You</h2>
+  <table class="table table-hover">
     <thead>
     <tr>
       <th>ID</th>
