@@ -98,6 +98,7 @@ section h2 {
 }
 
 .hero-unit  {
-    background: url('/static/img/bg/Oak.jpg') no-repeat right #191970;
+    margin-top:-25px;
+    background: url('/static/img/bg/gg.jpg') no-repeat right #000;
     color: #ffffd5;
 }
