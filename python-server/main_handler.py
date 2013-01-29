@@ -173,7 +173,7 @@ class MainHandler(webapp2.RequestHandler):
 
   def _send_alert(self, message_text, circles, actions=[]):
     logging.info('Inserting alert to %s' % circles)
-    a = alert.Alert(message_text, self.user).for_(circles)
+    a = alert.Alert(message_text, self.userModel).for_(circles)
     for action in actions:
         a.withOptionTo(action)
     a.send()
