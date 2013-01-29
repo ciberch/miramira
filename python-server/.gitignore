@@ -1,2 +1,3 @@
 *.pyc
 session.secret
+.DS_Store
