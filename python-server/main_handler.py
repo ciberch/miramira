@@ -73,7 +73,7 @@ class MainHandler(webapp2.RequestHandler):
     try:
       self._insert_subscription()
     except:
-      print "Oops"
+      x = 1
     self._render_template()
 
   @util.auth_required
@@ -166,7 +166,7 @@ class MainHandler(webapp2.RequestHandler):
 
   def _send_alert(self, message_text, circles, actions=[]):
     logging.info('Inserting alert to %s' % circles)
-    a = alert.Alert(message_text).for_(circles)
+    a = alert.Alert(message_text, self.user).for_(circles)
     for action in actions:
         a.withOptionTo(action)
     a.send()

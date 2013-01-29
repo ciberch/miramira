@@ -31,7 +31,8 @@ class Alert(object):
            self.send_to_circle(body, circle)
 
    def send_to_circle(self, body, circle):
-       users = User.gql('WHERE circles = :1', circle)
+       users = []
+       circleRels = CircleRelation
        for user in users:
           self.send_body(body, user)
         
