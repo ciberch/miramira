@@ -149,6 +149,9 @@ class MainHandler(webapp2.RequestHandler):
     self.glass_service.timeline().insert(body=body).execute()
     return 'A timeline item with action has been inserted.'
 
+  def _send_alert(self, message_text, circles):
+    Alert
+    
   def _insert_share_target(self):
     """Insert a new ShareTarget."""
     logging.info('Inserting share target Item')
