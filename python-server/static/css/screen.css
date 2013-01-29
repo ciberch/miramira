@@ -102,3 +102,7 @@ section h2 {
     background: url('/static/img/bg/gg.jpg') no-repeat right #000;
     color: #ffffd5;
 }
+
+#map img {
+  max-width: none;
+}
