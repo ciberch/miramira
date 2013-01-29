@@ -33,9 +33,7 @@ class Credentials(db.Model):
 class User(db.Model):
   first_name = db.StringProperty()
   last_name = db.StringProperty()
+  photo = db.LinkProperty()
   circles = db.StringListProperty()
   latitude = db.FloatProperty()
   longitude = db.FloatProperty()
-
-
-
