@@ -2,13 +2,14 @@
 
 import httplib2
 import util
-from model import Credentials, User
+from model import Credentials, User, CircleRelation
 from google.appengine.ext import db
 
 class Alert(object):
 
-   def __init__(self, alert_text, *args, **kwargs):
+   def __init__(self, alert_text, user, *args, **kwargs):
      self.alert_text = alert_text
+     self.user = user
      self.circles = []
      self.actions = []
 
@@ -31,9 +32,10 @@ class Alert(object):
            self.send_to_circle(body, circle)
 
    def send_to_circle(self, body, circle):
-       users = User.gql('WHERE circles = :1', circle)
-       for user in users:
-          self.send_body(body, user)
+       users = []
+       circleRels = CircleRelation.all().filter("follower=", self.user).filter("name=", circle)
+       for rel in circleRels:
+          self.send_body(body, rel.following)
         
    def send_body(self, body, user):
        http = httplib2.Http()

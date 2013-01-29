@@ -29,6 +29,8 @@ from google.appengine.api import urlfetch
 
 from apiclient.http import MediaIoBaseUpload
 
+from model import User
+
 import util
 
 
@@ -59,6 +61,10 @@ class MainHandler(webapp2.RequestHandler):
     if subscriptions.get('items'):
       template_values['subscriptions'] = subscriptions['items']
 
+    allUsers = User.all()
+    if( allUsers ):
+        template_values['allUsers'] = allUsers
+      
     template = jinja_environment.get_template('templates/index.html')
     self.response.out.write(template.render(template_values))
 
@@ -73,7 +79,7 @@ class MainHandler(webapp2.RequestHandler):
     try:
       self._insert_subscription()
     except:
-      print "Oops"
+      x = 1
     self._render_template()
 
   @util.auth_required
@@ -88,7 +94,8 @@ class MainHandler(webapp2.RequestHandler):
         'insertItemWithAction': self._insert_item_with_action,
         'insertShareTarget': self._insert_share_target,
         'deleteShareTarget': self._delete_share_target,
-        'team_send': self._send_circle_message
+        'team_send': self._send_circle_message,
+        'teamAddUser': self._add_user_to_team
     }
     if operation in operations:
       message = operations[operation]()
@@ -166,7 +173,7 @@ class MainHandler(webapp2.RequestHandler):
 
   def _send_alert(self, message_text, circles, actions=[]):
     logging.info('Inserting alert to %s' % circles)
-    a = alert.Alert(message_text).for_(circles)
+    a = alert.Alert(message_text, self.userModel).for_(circles)
     for action in actions:
         a.withOptionTo(action)
     a.send()
@@ -197,6 +204,8 @@ class MainHandler(webapp2.RequestHandler):
         id=self.request.get('id')).execute()
     return 'Share target has been deleted.'
 
+  def _add_user_to_team(self):
+    return "The users have been added to the team"
 
 MAIN_ROUTES = [
     ('/', MainHandler)
