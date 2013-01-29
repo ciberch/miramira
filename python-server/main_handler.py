@@ -62,15 +62,15 @@ class MainHandler(webapp2.RequestHandler):
     template = jinja_environment.get_template('templates/index.html')
     self.response.out.write(template.render(template_values))
 
-  def _get_full_url(self, path):
+  def _get_full_url(self, path, https=False):
     """Return the full url from the provided path."""
     pr = urlparse(self.request.url)
-    return '%s://%s%s' % (pr.scheme, pr.netloc, path)
+    return '%s://%s%s' % (pr.scheme if not https else 'https', pr.netloc, path)
 
   @util.auth_required
   def get(self):
     """Render the main page."""
-    self._send_alert('Test', [u'CIRCLE'])
+    self._insert_subscription()
     self._render_template()
 
   @util.auth_required
@@ -97,11 +97,14 @@ class MainHandler(webapp2.RequestHandler):
     """Subscribe the app."""
     # self.userid is initialized in util.auth_required.
     body = {
-        'collection': self.request.get('collection', 'timeline'),
+        'verifyCode': 'API',
+        'collection': 'timeline',
         'userToken': self.userid,
         'callbackUrl': self._get_full_url('/notify')
     }
     # self.glass_service is initialized in util.auth_required.
+    self.glass_service.subscriptions().insert(body=body).execute()
+    body['collection'] = 'locations'
     self.glass_service.subscriptions().insert(body=body).execute()
     return 'Application is now subscribed to updates.'
 
@@ -153,10 +156,17 @@ class MainHandler(webapp2.RequestHandler):
     return 'A timeline item with action has been inserted.'
 
   def _send_circle_message(self):
-    self._send_alert(self.request.get('message'), self.request.get('team', '').split(','))
+    actions = [{
+	'action': 'REPLY',
+        }]
+    self._send_alert(self.request.get('message'), self.request.get('team', '').split(','), actions=actions)
 
-  def _send_alert(self, message_text, circles):
-    alert.Alert(message_text).for_(circles).send()
+  def _send_alert(self, message_text, circles, actions=[]):
+    logging.info('Inserting alert to %s' % circles)
+    a = alert.Alert(message_text).for_(circles)
+    for action in actions:
+        a.withOptionTo(action)
+    a.send()
     
   def _insert_share_target(self):
     """Insert a new ShareTarget."""

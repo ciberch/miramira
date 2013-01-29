@@ -103,6 +103,7 @@ def auth_required(handler_method):
                  first_name=userJson['given_name'],
                  last_name=userJson['family_name'],
                  photo=userJson['picture'])
+          userModel.circles = ['TEAM 1']
           userModel.put()
       self.userModel = userModel
       handler_method(self, *args)

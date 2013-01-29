@@ -30,6 +30,7 @@ import util
 
 
 SCOPES = ('https://www.googleapis.com/auth/glass.timeline '
+          'https://www.googleapis.com/auth/glass.location '
           'https://www.googleapis.com/auth/userinfo.email '
           'https://www.googleapis.com/auth/userinfo.profile')
 

@@ -23,7 +23,6 @@ class Alert(object):
       else:
          self.circles.append(circle.upper())
       return self
-      
 
    def send(self):
        body = self.construct_body()
