@@ -45,6 +45,6 @@ class UserCoords(db.Model):
 
 class CircleRelation(db.Model):
   name = db.StringProperty()
-  follower = db.ReferenceProperty(User)
-  following = db.ReferenceProperty(User) 
+  follower = db.ReferenceProperty(User, collection_name="follower")
+  following = db.ReferenceProperty(User, collection_name="following") 
 

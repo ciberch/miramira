@@ -81,7 +81,7 @@ def create_glass_service(http):
     discovery_file.close()
     return result
 
-def add_person_to_follow(follower, following, circleName)
+def add_person_to_follow(follower, following, circleName):
   circleRelModel = None
   if following:
     for currentCircle in follower.circles:
@@ -93,7 +93,7 @@ def add_person_to_follow(follower, following, circleName)
         circleRelModel.put()
   return circleRelModel
 
-def add_person_to_follow_by_id(follower, following_id, circleName)
+def add_person_to_follow_by_id(follower, following_id, circleName):
   following = User.get_by_key_name(following_id)
   add_person_to_follow(follower, following, circleName)
   return None
