@@ -10,9 +10,10 @@
             <label class="control-label">To</label>
             <div class="controls">
                 <select class="input-xlarge" multiple="multiple" name="team">
-                    <option selected>Team 1</option>
-                    <option>Team 2</option>
-                    <option>Team 3</option></select>
+                    {% for circle in user.circles %}
+                    <option>{{ circle }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
 

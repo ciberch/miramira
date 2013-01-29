@@ -1,3 +1,5 @@
 *.pyc
 session.secret
 client_secrets.json
+.DS_Store
+
