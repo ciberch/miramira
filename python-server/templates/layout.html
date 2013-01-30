@@ -58,6 +58,8 @@ this.getLocation = function(position) {
     this.map = new google.maps.Map(myMap,mapOptions);
     var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     console.log("Pos is " + pos);
+    $("#lat").val(pos.lat());
+    $("#lng").val(pos.lng());
     this.map.setCenter(pos);
     var marker = new google.maps.Marker({
       position: pos,
@@ -66,9 +68,11 @@ this.getLocation = function(position) {
       draggable:true
     });
     google.maps.event.addListener(marker, 'click', function() {
-      console.log("New position is ");
-      console.dir(marker.getPosition());
-      this.map.setCenter(marker.getPosition());
+      pos = marker.getPosition();
+      console.log("Pos is " + pos);
+      $("#lat").val(pos.lat());
+      $("#lng").val(pos.lng());
+      this.map.setCenter(pos);
     });
 
 }
