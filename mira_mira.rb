@@ -6,7 +6,7 @@ class MiraMira < Sinatra::Base
 
   use OmniAuth::Builder do
     # Regular usage
-    provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {}
+    provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {:scope => "userinfo.email,userinfo.profile,plus.me,https://www.googleapis.com/auth/glass.timeline"}
 
     # Custom scope supporting youtube
     # provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {:scope => 'http://gdata.youtube.com,userinfo.email,userinfo.profile,plus.me', :access_type => 'online', :approval_prompt => ''}
@@ -23,8 +23,8 @@ class MiraMira < Sinatra::Base
   end
 
   get '/auth/:provider/callback' do
-    content_type 'text/plain'
-    request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
+    content_type 'application/json'
+    request.env['omniauth.auth'].to_json rescue "No Data"
   end
 
   get '/auth/failure' do
