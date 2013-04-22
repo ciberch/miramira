@@ -1,8 +1,14 @@
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
+require "mirror-api"
+
 class MiraMira < Sinatra::Base
 
   use Rack::Session::Cookie, :secret => ENV['RACK_COOKIE_SECRET']
+
+  configure do
+    set :views, "#{File.dirname(__FILE__)}/views"
+  end
 
   use OmniAuth::Builder do
     # Regular usage
@@ -15,20 +21,20 @@ class MiraMira < Sinatra::Base
   enable :sessions
 
   get '/' do
-    <<-HTML
-    <ul>
-      <li><a href='/auth/google_oauth2'>Sign in with Google</a></li>
-    </ul>
-    HTML
+    erb :index
   end
+
 
   get '/auth/:provider/callback' do
     content_type 'application/json'
-    request.env['omniauth.auth'].to_json rescue "No Data"
+    session[:info] = request.env['omniauth.auth']['info']
+    session[:credentials] = request.env['omniauth.auth']['credentials']
+    redirect "/"
   end
 
   get '/auth/failure' do
     content_type 'text/plain'
-    request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
+    session[:credentials] = nil
+    redirect "/"
   end
 end

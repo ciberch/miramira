@@ -1,0 +1,62 @@
+<form class="form-horizontal" action="/" method="post">
+    <input type="hidden" name="operation" value="team_send">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class="">Send Help Request</legend>
+        </div>
+        <div class="control-group" />
+    </fieldset>
+                    
+        <div class="row">
+
+        <div class="control-group span6">
+            <label class="control-label">To</label>
+            <div class="controls" >
+                <select class="" multiple="multiple" name="team">
+                    <%- @user.circles.each do |circle| %>
+                    <option><%= circle %></option>
+                    <%- end %>
+                </select>
+            </div>
+
+            <br />
+        
+            <!-- Textarea -->
+            <label class="control-label">Message</label>
+            <div class="controls">
+                <div class="textarea">
+                    <textarea style="height:200px" name="message" type="" class="">What's Happening ?</textarea>
+                </div>
+            </div>
+            <br />
+                        <!-- Select Multiple -->
+            <label class="control-label">Urgency</label>
+            <div class="controls">
+                <select name="priority" multiple="multiple">
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
+                </select>
+            </div>
+        </div>
+            <div id="map" style="border:solid 1px;width:400px; height: 400px" class="span6">
+            </div>
+            <div style="margin-left:10px" class="span4">
+            <strong>Incident Location</strong>
+            
+            <label class="control-label">Latitude&nbsp;</label>
+            <input type="text" name="lat" id="lat" value="" class="input-small">
+            <br />
+            <label class="control-label">Longitude&nbsp;</label>
+            <input type="text" name="lng" id="lng" value="" class="input-small">
+            </div>
+        </div>
+
+
+    <div class="control-group">
+        <div class="controls">
+        <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+    </div>
+
+</form>

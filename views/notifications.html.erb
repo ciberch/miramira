@@ -1,0 +1,44 @@
+<h2>Notifications</h2>
+<p>Once subscribed, sharing photos will echo them back to your Glass device.</p>
+<p>Note: this will only work when deployed to AppEngine. It will not work on localhost.</p>
+<div class="do">
+    <form action="/" method="post">
+        <input type="hidden" name="operation" value="insertSubscription">
+        <input type="hidden" name="collection" value="timeline">
+        <button type="submit">Subscribe to timeline item updates</button>
+    </form>
+    <form action="/" method="post">
+        <input type="hidden" name="operation" value="insertSubscription">
+        <input type="hidden" name="collection" value="locations">
+        <button type="submit">Subscribe to location updates</button>
+    </form>
+</div>
+
+<table class="see">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Callback URL</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <%= if @subscriptions %>
+    <%- @subscriptions.each do |subscription| %>
+    <tr>
+        <td><%= subscription.id %></td>
+        <td><%= subscription.callback_url %></td>
+        <td>
+            <form action="/" method="post">
+                <input type="hidden" name="operation" value="deleteSubscription">
+                <input type="hidden" name="subscriptionId" value="<%=subscription.id%>">
+                <button type="submit" class="delete">X</button>
+            </form>
+        </td>
+    </tr>
+    <%- end %>
+    <%- end %>
+    </tbody>
+</table>
+<div style="clear: both"></div>
