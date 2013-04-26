@@ -1,6 +1,7 @@
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 require "mirror-api"
+require "hashie/mash"
 
 class MiraMira < Sinatra::Base
 
@@ -19,6 +20,14 @@ class MiraMira < Sinatra::Base
   end
 
   enable :sessions
+
+  before do
+    if session[:info]
+      @user = session[:info]
+      @user.circles = [] #temp
+      erb :index
+    end
+  end
 
   get '/' do
     erb :index

@@ -8,23 +8,25 @@
             <div class="modal-body">
 	            <span class="controls" style="padding: 10px;" >
 	                <select id="circle_name" class="input-xlarge" name="team">
-	                    <%- @user.circles.each do |team| %>
+	                    <% @user.circles.each do |team| %>
 	                    <option value="<%= team %>">
 	                    	<span><%= team %></span>
 	                    </option>
-	                    <%- end %>
+	                    <% end %>
 	                </select>
 	            </span>
 	            <span class="controls" style="padding: 10px;" >
-	                    <ul id="user_list" class="unstyled">
-	                    <%- @all_users.each do |usr| %>
-	                    	<li>
-	                    	<input type="checkbox" id="check_<%= usr.key_name %>" name="member" value="<%= usr.key_name %>" />
-	                    	<img src="<%=usr.photo %>" width="30" height="30"/>&nbsp;
-	                    		<span><%= usr.first_name %> <%=usr.last_name%></span>
-	                    	</li>
-	                    <%- end %>
-	                    </ul>
+                    <% if @all_users %>
+	                        <ul id="user_list" class="unstyled">
+                            <% @all_users.each do |usr| %>
+                                <li>
+                                <input type="checkbox" id="check_<%= usr.key_name %>" name="member" value="<%= usr.key_name %>" />
+                                <img src="<%=usr.photo %>" width="30" height="30"/>&nbsp;
+                                    <span><%= usr.first_name %> <%=usr.last_name%></span>
+                                </li>
+                            <% end %>
+	                        </ul>
+                      <% end %>
 	                </select>
 	            </span>
            </div>

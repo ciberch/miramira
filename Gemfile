@@ -9,7 +9,7 @@ gem "rest-client"
 gem "rake"
 
 gem "omniauth-google-oauth2"
-gem "mirror-api", "~> 0.0.4"
+gem "mirror-api", "~> 0.0.7"
 
 group :development do
   gem "rerun"

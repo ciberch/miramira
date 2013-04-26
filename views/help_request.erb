@@ -12,11 +12,13 @@
         <div class="control-group span6">
             <label class="control-label">To</label>
             <div class="controls" >
+              <% if @user %>
                 <select class="" multiple="multiple" name="team">
-                    <%- @user.circles.each do |circle| %>
-                    <option><%= circle %></option>
-                    <%- end %>
+                    <% @user.circles.each do |circle| %>
+                        <option><%= circle %></option>
+                    <% end %>
                 </select>
+              <% end %>
             </div>
 
             <br />

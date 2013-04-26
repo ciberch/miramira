@@ -1,0 +1,22 @@
+<% if @user %>
+    <% if @message %>
+    <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Message: </strong><%= @message %>
+    </div>
+    <% end %>
+
+    <section id="send_message">
+        <%= erb :help_request %>
+        <div style="clear: both"></div>
+    </section>
+
+    <section id="timeline">
+       <%= erb :timeline %>
+        <div style="clear: both"></div>
+    </section>
+
+    <section id="teams">
+        <%= erb :teams %>
+    </section>
+<% end %>

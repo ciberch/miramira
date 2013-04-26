@@ -25,7 +25,7 @@
     <tbody>
 
     <%= if @subscriptions %>
-    <%- @subscriptions.each do |subscription| %>
+    <% @subscriptions.each do |subscription| %>
     <tr>
         <td><%= subscription.id %></td>
         <td><%= subscription.callback_url %></td>
@@ -37,8 +37,8 @@
             </form>
         </td>
     </tr>
-    <%- end %>
-    <%- end %>
+    <% end %>
+    <% end %>
     </tbody>
 </table>
 <div style="clear: both"></div>

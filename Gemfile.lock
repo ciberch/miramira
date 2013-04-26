@@ -15,7 +15,7 @@ GEM
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
     mime-types (1.19)
-    mirror-api (0.0.4)
+    mirror-api (0.0.7)
       hashie
       json
       rake
@@ -62,7 +62,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   hashie
-  mirror-api (~> 0.0.4)
+  mirror-api (~> 0.0.7)
   omniauth (~> 1.0.3)
   omniauth-google-oauth2
   rake
