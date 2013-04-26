@@ -7,6 +7,7 @@ gem "hashie"
 gem "omniauth", "~> 1.0.3"
 gem "rest-client"
 gem "rake"
+gem "mongoid"
 
 gem "omniauth-google-oauth2"
 gem "mirror-api", "~> 0.0.7"
