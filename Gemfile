@@ -10,7 +10,7 @@ gem "rake"
 gem "mongoid"
 
 gem "omniauth-google-oauth2"
-gem "mirror-api", "~> 0.0.7"
+gem "mirror-api", "~> 0.0.8"
 
 group :development do
   gem "rerun"
