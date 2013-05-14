@@ -8,9 +8,10 @@ gem "omniauth", "~> 1.0.3"
 gem "rest-client"
 gem "rake"
 gem "mongoid"
+gem "unicorn"
 
 gem "omniauth-google-oauth2"
-gem "mirror-api", "~> 0.0.8"
+gem "mirror-api", "~> 0.1.0"
 
 group :development do
   gem "rerun"
