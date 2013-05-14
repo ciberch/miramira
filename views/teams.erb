@@ -16,17 +16,16 @@
 	                </select>
 	            </span>
 	            <span class="controls" style="padding: 10px;" >
-                    <% if @all_users %>
-	                        <ul id="user_list" class="unstyled">
-                            <% @all_users.each do |usr| %>
-                                <li>
-                                <input type="checkbox" id="check_<%= usr.key_name %>" name="member" value="<%= usr.key_name %>" />
-                                <img src="<%=usr.photo %>" width="30" height="30"/>&nbsp;
-                                    <span><%= usr.first_name %> <%=usr.last_name%></span>
-                                </li>
-                            <% end %>
-	                        </ul>
-                      <% end %>
+
+                        <ul id="user_list" class="unstyled">
+                        <% @user.get_others.each do |usr| %>
+                            <li>
+                            <input type="checkbox" id="check_<%= usr.uid %>" name="member" value="<%= usr.uid %>" />
+                            <img src="<%=usr.image %>" width="30" height="30"/>&nbsp;
+                                <span><%= usr.name%></span>
+                            </li>
+                        <% end %>
+                        </ul>
 	                </select>
 	            </span>
            </div>
