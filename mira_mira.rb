@@ -1,14 +1,16 @@
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-require "mirror-api"
-require "hashie/mash"
+require_relative "lib/app_config"
 
 class MiraMira < Sinatra::Base
 
-  use Rack::Session::Cookie, :secret => ENV['RACK_COOKIE_SECRET']
-
   configure do
     set :views, "#{File.dirname(__FILE__)}/views"
+  end
+
+  def initialize
+    super
+    AppConfig.configure_any_mongoid
   end
 
   use OmniAuth::Builder do
@@ -22,28 +24,58 @@ class MiraMira < Sinatra::Base
   enable :sessions
 
   before do
-    if session[:info]
-      @user = session[:info]
-      @user.circles = [] #temp
-      erb :index
+    if session[:uid]
+      @user = User.where(:uid => session[:uid]).first
+      @client = Mirror::Api::Client.new(@user.credential.token) if @user
     end
   end
 
   get '/' do
+    @timeline_items = @client.timeline.list.items if @client
     erb :index
   end
 
+  post '/team_send' do
+    msg = params[:message]
+    if msg
+      priority = params[:priority]
+
+      file = params[:file]
+      if file
+        @client.timeline.insert({text: msg}, file)
+      else
+        @client.timeline.insert(text: msg)
+      end
+
+    end
+    redirect "/"
+  end
+
+  get '/logout' do
+    session[:uid] = nil
+    "You are logged out"
+  end
 
   get '/auth/:provider/callback' do
-    content_type 'application/json'
-    session[:info] = request.env['omniauth.auth']['info']
-    session[:credentials] = request.env['omniauth.auth']['credentials']
+    uid = request.env['omniauth.auth']['uid']
+
+    if uid
+      user = User.find_or_initialize_by(:uid => uid)
+      if user
+        user.contact = Contact.new(request.env['omniauth.auth']['info'])
+        user.credential = Credential.new(request.env['omniauth.auth']['credentials'])
+        user.save!
+      end
+
+      session[:uid] = uid
+    end
+
     redirect "/"
   end
 
   get '/auth/failure' do
     content_type 'text/plain'
-    session[:credentials] = nil
+    session[:uid] = nil
     redirect "/"
   end
 end
