@@ -44,7 +44,7 @@ class MiraMira < Sinatra::Base
       if file
         @client.timeline.insert({text: msg}, file)
       else
-        @client.timeline.insert(text: msg)
+        @client.timeline.insert(text: msg, notification: { level: "DEFAULT"})
       end
 
     end
