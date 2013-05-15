@@ -1,39 +1,32 @@
 Mira Mira
 ========
 
-### Use Cases
+Google Glass is a Sinatra(Ruby) Mirror Api client app to handle anything urgent leveraging Glass.
+Since now everyone has a Mirror API account you can try this app even if you dont have a pair of Google Glasses.
 
-For Anyone
-- Login with Google+ to see who of their friends are online
-- Directory of users and their locations (and busy or not)
+### Usage
 
-For the glass wearer
-- I want to know if anyone needs me urgently and where to meet them or what actions I need to do.
+- Authenticate and authorize
+- Go to Manage Team in the Nav Bar and add people to your teams(you can add yourself)
+- Once you find an emergency use the web app to send them a message
+- Whomever responds first is the person who is handling your emergency
 
-### Screens needed
+### This is a sample app
+Demonstrates use of the Mirror-Api gem
 
-#### Login
-- Auth
-- Confirm basic info
-- Join Groups / View Groups
-- Set status
-- Mark down whether the user has Glasses or Not
-- Mark down if they want to share their location
+If you would like to try this gem visit
 
-#### Send Message Screen
-- Support multiple recipients
-- Preview shows your profile pic and name
-- Message text
-- Severity (Urgent or not)
+https://github.com/ciberch/mirror-api
 
-### Google Glass Screens
+## Inspired By
 
-#### Alert
-- From
-- Urgency Indicator
-- Message
-- Answer/Reply
+The Python Mira Mira App written by myself, Greg Giacovelli and Henrick Nordberg during Glass Foundry
 
-#### Second Notice
-Alert has been handled by person X
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request referencing the issue
 
