@@ -1,8 +1,11 @@
 class User
   include Mongoid::Document
+  include Mongoid::Spacial::Document
   include Mongoid::Timestamps
 
   field :uid
+  field :phone_number
+  field :location, type: Array, spacial: true
   field :circles, type: Array, :default => ["developers", "explorers", "family", "team", "fans"]
 
   embeds_one :contact, :as => :contactable

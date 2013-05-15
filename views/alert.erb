@@ -1,0 +1,20 @@
+<article>
+  <figure>
+    <img src="<%= @alert.sender.image %>" style="width:240px" />
+    <img src="http://miramira.herokuapp.com/img/bg/gg200.jpg" style="width:240px" />
+  </figure>
+  <section>
+    <p class="text-auto-size">
+    <strong class="<%= @alert.color %>"><%=@alert.text %></p>
+    <% if @alert.phone_number %>
+        <br/>
+        <small>&#9742;&nbsp;<em><%= @alert.phone_number %></em></small>
+    <% end %>
+    <% if @alert.location %>
+        <br/>
+       <small>@&nbsp;<%= "#{@alert.location[:lat].round(2)}, #{@alert.location[:lng].round(2)}"  %></small>
+    <% end %>
+    </p>
+  </section>
+  <footer>- <%= @alert.sender.name %></footer>
+</article>

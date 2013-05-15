@@ -34,9 +34,31 @@ class MiraMira < Sinatra::Base
     erb :index
   end
 
-  post '/team_send' do
-    @alert = Alert.create!(:sender => @user, :text => params[:message], :priority => params[:priority], :circles => params[:circles])
-    puts "Created alert #{@alert}"
+  post '/alerts' do
+    loc = nil
+
+    if params[:lat] && params[:lng]
+      loc = {:lat => params[:lat], :lng => params[:lng]}
+    end
+
+    if params[:remember]
+      @user.location = loc if loc
+      @user.phone_number = params[:phone_number] if params[:phone_number]
+      @user.save!
+    end
+
+    @alert = Alert.new(
+        {
+            :sender => @user,
+            :text => params[:message],
+            :priority => params[:priority],
+            :circles => params[:circles]
+        }
+    )
+    @alert.phone_number = params[:phone_number] if params[:phone_number]
+    @alert.location = loc if loc
+    @alert.html = erb :alert, :layout => false
+    @alert.save!
     redirect "/"
   end
 
@@ -59,7 +81,7 @@ class MiraMira < Sinatra::Base
     redirect "/"
   end
 
-  get '/logout' do
+  get '/signout' do
     session[:uid] = nil
     "You are logged out"
   end

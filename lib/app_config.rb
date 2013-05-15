@@ -1,7 +1,7 @@
 require "mirror-api"
 require "hashie/mash"
 require "mongoid"
-
+require "mongoid_spacial"
 
 require_relative "../models/credential"
 require_relative "../models/contact"
