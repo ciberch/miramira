@@ -2,20 +2,34 @@ require "mirror-api"
 require "hashie/mash"
 require "mongoid"
 
+require_relative "alert"
 require_relative "../models/credential"
 require_relative "../models/contact"
-require_relative "../models/circle"
 require_relative "../models/user"
+require_relative "../models/user_relation"
+
 
 
 class AppConfig
 
-  class << self
+    class << self
 
     def environment
       rack_env = ENV['RACK_ENV']
       rack_env = rack_env.to_sym if rack_env.is_a?(String)
       rack_env || :development
+    end
+
+    def scope
+      "userinfo.email,userinfo.profile,plus.me,https://www.googleapis.com/auth/glass.timeline,https://www.googleapis.com/auth/glass.location"
+    end
+
+    def key
+      ENV['GOOGLE_KEY']
+    end
+
+    def secret
+      ENV['GOOGLE_SECRET']
     end
 
     def configure_any_mongoid
@@ -34,7 +48,6 @@ class AppConfig
     end
 
     def configure_mongoid(mongodb_url)
-      puts "Configuring #{mongodb_url} ***"
       Mongoid.configure do |config|
         config.sessions = { :default => { :uri => mongodb_url }}
       end

@@ -15,7 +15,7 @@ class MiraMira < Sinatra::Base
 
   use OmniAuth::Builder do
     # Regular usage
-    provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {:scope => "userinfo.email,userinfo.profile,plus.me,https://www.googleapis.com/auth/glass.timeline,https://www.googleapis.com/auth/glass.location"}
+    provider :google_oauth2, AppConfig.key, AppConfig.secret, {:scope => AppConfig.scope}
 
     # Custom scope supporting youtube
     # provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {:scope => 'http://gdata.youtube.com,userinfo.email,userinfo.profile,plus.me', :access_type => 'online', :approval_prompt => ''}
@@ -26,12 +26,11 @@ class MiraMira < Sinatra::Base
   before do
     if session[:uid]
       @user = User.where(:uid => session[:uid]).first
-      @client = Mirror::Api::Client.new(@user.credential.token) if @user
     end
   end
 
   get '/' do
-    @timeline_items = @client.timeline.list.items if @client
+    @timeline_items = @user.timeline.list.items if @user
     erb :index
   end
 
@@ -42,12 +41,31 @@ class MiraMira < Sinatra::Base
 
       file = params[:file]
       if file
-        @client.timeline.insert({text: msg}, file)
+        @user.timeline.insert({text: msg}, file)
       else
-        @client.timeline.insert(text: msg, notification: { level: "DEFAULT"})
+        @user.timeline.insert(text: msg, notification: { level: "DEFAULT"})
       end
 
     end
+    redirect "/"
+  end
+
+  post '/users' do
+    other = User.where(:uid => params[:member]).first
+    name = params[:team]
+    if other
+      rel = @user.user_relations.where(:recipient_user_id => other.id).first
+
+      if rel
+        rel.circles << name unless rel.circles.is_a?(Array) && rel.circles.include?(name)
+      else
+        rel = UserRelation.new(:circles => [name], :recipient_user => other)
+        puts "User Rel is #{rel.inspect}"
+        @user.user_relations << rel if rel
+      end
+    end
+
+    @user.save!
     redirect "/"
   end
 

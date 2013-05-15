@@ -1,40 +1,31 @@
-
-
 class Alert
+
+  attr_accessor :actions, :circle_names
+
   def initialize(alert_text, user)
     @alert_text = alert_text
     @user = user
-    @circles = []
+    @circle_names = []
     @actions = []
-  end
-
-
-  def withOptionTo(action)
-    self.actions.append(action)
-    self
-  end
-
-  def for_(circle)
-    @circles << circle
   end
 
   def send
     body = self.construct_body
-    @circles.each do |circle|
-      body[:creator] = { :id => @user.id, :displayName =>  @user.first_name, :imageUrls => [@user.photo]}
-      send_to_circle(body, circle)
+    @user.user_relations.where(:circles => {"$in" => @circle_names}).each do |rel|
+      rel.recipient_user.timeline.insert(body)
     end
   end
 
-  def send_to_circle(body, circle_name)
-    circle = User.circles.where(:name => circle_name).first
-    circle.peeps do |person|
-      self.send_body(body, person)
-    end
+  def construct_body
+    {
+        :notification => {:level => 'AUDIO_ONLY'},
+        :text => @alert_text,
+        :menu_items => @actions,
+        :creator => creator
+    }
   end
 
-  def send_body(body, user)
-    client = Mirror::Api::Client.new(user.credentials.token)
-    client.timeline.insert(body: body)
+  def creator
+    { :id => @user.uid, :display_name =>  @user.first_name, :image_urls => [@user.image]}
   end
 end
