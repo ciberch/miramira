@@ -34,6 +34,9 @@ GEM
       moped (~> 1.4.2)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
+    mongoid_spacial (0.2.16)
+      activesupport (~> 3.0)
+      mongoid (>= 2.3.0)
     moped (1.4.5)
     multi_json (1.5.0)
     multipart-post (1.1.5)
@@ -86,6 +89,7 @@ DEPENDENCIES
   hashie
   mirror-api (~> 0.1.0)
   mongoid
+  mongoid_spacial
   omniauth (~> 1.0.3)
   omniauth-google-oauth2
   rake

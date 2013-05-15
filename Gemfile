@@ -12,6 +12,7 @@ gem "unicorn"
 
 gem "omniauth-google-oauth2"
 gem "mirror-api", "~> 0.1.0"
+gem 'mongoid_spacial'
 
 group :development do
   gem "rerun"
