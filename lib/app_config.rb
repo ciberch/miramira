@@ -34,8 +34,8 @@ class AppConfig
 
     def configure_any_mongoid
       Mongoid.raise_not_found_error = false
-      if ENV["MONGODB_URL"]
-        configure_mongoid(ENV["MONGODB_URL"])
+      if ENV["MONGOLAB_URI"]
+        configure_mongoid(ENV["MONGOLAB_URI"])
       else
         configure_mongoid_locally(environment)
       end
