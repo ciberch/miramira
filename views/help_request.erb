@@ -12,7 +12,7 @@
             <label class="control-label">To</label>
             <div class="controls" >
               <% if @user %>
-                <select class="" multiple="multiple" name="team">
+                <select class="" multiple="multiple" name="circles[]">
                     <% @user.circles.each do |circle| %>
                         <option><%= circle %></option>
                     <% end %>

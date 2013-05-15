@@ -2,12 +2,12 @@ require "mirror-api"
 require "hashie/mash"
 require "mongoid"
 
-require_relative "alert"
+
 require_relative "../models/credential"
 require_relative "../models/contact"
 require_relative "../models/user"
 require_relative "../models/user_relation"
-
+require_relative "../models/alert"
 
 
 class AppConfig

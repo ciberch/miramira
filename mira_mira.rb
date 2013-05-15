@@ -35,18 +35,8 @@ class MiraMira < Sinatra::Base
   end
 
   post '/team_send' do
-    msg = params[:message]
-    if msg
-      priority = params[:priority]
-
-      file = params[:file]
-      if file
-        @user.timeline.insert({text: msg}, file)
-      else
-        @user.timeline.insert(text: msg, notification: { level: "DEFAULT"})
-      end
-
-    end
+    @alert = Alert.create!(:sender => @user, :text => params[:message], :priority => params[:priority], :circles => params[:circles])
+    puts "Created alert #{@alert}"
     redirect "/"
   end
 

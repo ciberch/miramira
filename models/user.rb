@@ -9,6 +9,8 @@ class User
   embeds_one :credential
 
   embeds_many :user_relations
+  has_many :alerts_sent, :class_name => "Alert", :inverse_of => :sender
+  has_many :alerts_handled, :class_name => "Alert", :inverse_of => :responder
 
   delegate :image, :to => :contact
   delegate :name, :to => :contact
