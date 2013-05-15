@@ -4,7 +4,8 @@ class UserRelation
 
   embedded_in :user
 
-  field :circles, type: Array
+  field :circles, type: Array, :default => []
+  belongs_to :recipient_user, :class_name => "User", :inverse_of => nil
 
-  belongs_to :recipient_user, :class_name => "User"
+  validates_presence_of :recipient_user
 end
