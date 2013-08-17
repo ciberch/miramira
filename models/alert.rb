@@ -28,14 +28,15 @@ class Alert
       body[:menu_items] << { action: "VOICE_CALL"}
     end
     rels = self.sender.user_relations.where(:circles => {"$in" => self.circles})
-    rels.each do |rel|
-      resp = rel.recipient_user.timeline.insert(body)
-      self.recipients << rel.recipient_user.id if resp
+    if rels
+      rels.each do |rel|
+        resp = rel.recipient_user.timeline.insert(body)
+        self.recipients << rel.recipient_user.id if resp
+      end
+      if self.recipients.count > 0
+        self.sent = true
+      end
     end
-    if self.recipients.count > 0
-      self.sent = true
-    end
-
     puts "Saved alert #{self.inspect}"
   end
 
